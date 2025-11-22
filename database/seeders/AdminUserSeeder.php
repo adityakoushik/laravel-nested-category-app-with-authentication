@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class AdminUserSeeder extends Seeder
 {
@@ -13,7 +14,7 @@ class AdminUserSeeder extends Seeder
 	 */
 	public function run(): void
 	{
-		$email = 'admin@example.com';
+		$email = 'admin@gmail.com';
 
 		$user = User::where('email', $email)->first();
 
@@ -21,15 +22,16 @@ class AdminUserSeeder extends Seeder
 			$user = User::create([
 				'name' => 'Admin',
 				'email' => $email,
-				'password' => Hash::make('password123'),
+				'password' => Hash::make('12345678'),
 			]);
 		} else {
 			$user->name = 'Admin';
-			$user->password = Hash::make('password123');
+			$user->password = Hash::make('12345678');
 			$user->save();
 		}
 
-		// Ensure role is set to admin (use forceFill to bypass mass-assignment restrictions)
-		$user->forceFill(['role' => 'admin'])->save();
+		// Ensure an 'admin' role exists and assign it to the user
+		Role::firstOrCreate(['name' => 'admin']);
+		$user->assignRole('admin');
 	}
 }

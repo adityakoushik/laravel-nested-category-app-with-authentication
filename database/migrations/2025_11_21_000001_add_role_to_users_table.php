@@ -1,27 +1,21 @@
 <?php
 
+// Legacy migration converted to no-op because roles are managed
+// by spatie/laravel-permission. The original migration added a
+// `role` string column to `users`. Keep this file as a no-op so
+// it doesn't reintroduce the column when running migrations on
+// other environments.
+
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-	/**
-	 * Run the migrations.
-	 */
 	public function up(): void
 	{
-		Schema::table('users', function (Blueprint $table) {
-			$table->string('role')->default('user')->after('password');
-		});
+		// no-op
 	}
 
-	/**
-	 * Reverse the migrations.
-	 */
 	public function down(): void
 	{
-		Schema::table('users', function (Blueprint $table) {
-			$table->dropColumn('role');
-		});
+		// no-op
 	}
 };
