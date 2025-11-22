@@ -22,7 +22,7 @@
 
 				<p class="text-lg">Welcome, <span class="font-semibold">{{ $user->name ?? auth()->user()->name }}</span>!</p>
 				<p class="text-gray-700">Role: <span
-						class="font-semibold">{{ ($user->getRoleNames()->count() ? $user->getRoleNames()->join(', ') : '—') }}</span>
+						class="font-semibold">{{ ($user->getRoleNames()->count() ? $user->getRoleNames()->join(', ') : 'user') }}</span>
 				</p>
 			</div>
 		</div>

@@ -28,5 +28,16 @@ class DatabaseSeeder extends Seeder
 			'email_verified_at' => now(),
 			'password' => Hash::make('12345678'),
 		]);
+
+		// Ensure test user has a 'user' role so dashboard shows it
+		try {
+			$test = User::where('email', 'test@gmail.com')->first();
+			if ($test) {
+				\Spatie\Permission\Models\Role::firstOrCreate(['name' => 'user']);
+				$test->assignRole('user');
+			}
+		} catch (\Throwable $e) {
+			// ignore if permissions package not available during seeding
+		}
 	}
 }
