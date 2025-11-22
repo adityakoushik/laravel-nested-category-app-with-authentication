@@ -56,7 +56,7 @@ class AdminMiddlewareTest extends TestCase
 	{
 		$user = User::factory()->create();
 
-		$response = $this->actingAs($user)->get(route('user.dashboard'));
+		$response = $this->actingAs($user)->get(route('dashboard'));
 
 		// Admin dashboard link should not be present for normal users
 		$response->assertDontSee(route('admin.dashboard'));

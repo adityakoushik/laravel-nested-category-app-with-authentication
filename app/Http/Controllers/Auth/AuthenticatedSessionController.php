@@ -49,7 +49,7 @@ class AuthenticatedSessionController extends Controller
 		}
 
 		// Non-admins: respect intended URL if present, otherwise go to user dashboard.
-		return redirect()->intended(route('user.dashboard'));
+		return redirect()->intended(route('dashboard'));
 	}
 
 	/**

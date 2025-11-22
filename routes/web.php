@@ -15,7 +15,7 @@ use App\Http\Controllers\UserDashboardController;
 // User dashboard (default)
 Route::get('/dashboard', [UserDashboardController::class, 'dashboard'])
 	->middleware(['auth', 'verified'])
-	->name('user.dashboard');
+	->name('dashboard');
 
 // Admin routes
 // Use Spatie `role:admin` middleware for route protection
