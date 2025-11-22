@@ -29,10 +29,15 @@ class AuthenticatedSessionController extends Controller
 		$request->session()->regenerate();
 
 		$user = Auth::user();
-		// Use Spatie roles when available. Fallback to user dashboard.
+
+		// If the user is an admin, send them to the admin dashboard explicitly.
+		// We intentionally do NOT honor a previously-intended URL for admins
+		// because admins should land on the admin area after login.
 		if (method_exists($user, 'hasRole') && $user->hasRole('admin')) {
-			return redirect()->intended(route('admin.dashboard'));
+			return redirect()->route('admin.dashboard');
 		}
+
+		// Non-admins: respect intended URL if present, otherwise go to user dashboard.
 		return redirect()->intended(route('user.dashboard'));
 	}
 
