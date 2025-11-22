@@ -14,8 +14,17 @@ class AuthenticatedSessionController extends Controller
 	/**
 	 * Display the login view.
 	 */
-	public function create(): View
+	public function create(Request $request): View
 	{
+		// If an intended URL points to the user dashboard, clear it so admins
+		// are not sent there after login. Compare only the path for robustness.
+		if ($request->session()->has('url.intended')) {
+			$path = parse_url($request->session()->get('url.intended'), PHP_URL_PATH) ?: '';
+			if (str_ends_with($path, '/dashboard')) {
+				$request->session()->forget('url.intended');
+			}
+		}
+
 		return view('auth.login');
 	}
 
@@ -30,10 +39,12 @@ class AuthenticatedSessionController extends Controller
 
 		$user = Auth::user();
 
-		// If the user is an admin, send them to the admin dashboard explicitly.
-		// We intentionally do NOT honor a previously-intended URL for admins
-		// because admins should land on the admin area after login.
-		if (method_exists($user, 'hasRole') && $user->hasRole('admin')) {
+
+		if ($user && method_exists($user, 'hasRole') && $user->hasRole('admin')) {
+			// Clear any stored intended URL that may point to non-admin pages
+			// and send admins to the admin dashboard.
+			$request->session()->forget('url.intended');
+
 			return redirect()->route('admin.dashboard');
 		}
 
