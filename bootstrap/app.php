@@ -14,6 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
 		// Register route middleware aliases (Laravel 12 style).
 		$middleware->alias([
 			'admin' => \App\Http\Middleware\AdminMiddleware::class,
+			// Spatie role middleware alias for route parameters (e.g. 'role:admin')
+			'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
 		]);
 	})
 	->withExceptions(function (Exceptions $exceptions) {

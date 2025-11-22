@@ -49,6 +49,7 @@ class AdminMiddlewareTest extends TestCase
 
 		$response->assertStatus(200);
 		$response->assertSee('Other User');
+		$response->assertSee('Return to Admin');
 	}
 
 	public function test_non_admin_does_not_see_admin_links_in_nav()

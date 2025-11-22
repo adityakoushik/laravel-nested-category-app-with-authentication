@@ -18,7 +18,8 @@ Route::get('/dashboard', [UserDashboardController::class, 'dashboard'])
 	->name('user.dashboard');
 
 // Admin routes
-Route::prefix('admin')->middleware(['auth', 'verified', 'admin'])->group(function () {
+// Use Spatie `role:admin` middleware for route protection
+Route::prefix('admin')->middleware(['auth', 'verified', 'role:admin'])->group(function () {
 	Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 	Route::get('/users', [AdminController::class, 'users'])->name('admin.users.index');
 	Route::get('/users/{user}/dashboard', [AdminController::class, 'viewUserDashboard'])->name('admin.users.dashboard');

@@ -11,7 +11,8 @@
 				<span class="mx-2">|</span>
 				<a href="{{ route('admin.categories.index') }}" class="text-blue-600 hover:underline">Categories</a>
 				<span class="mx-2">|</span>
-				<a href="{{ route('user.dashboard') }}" class="text-blue-600 hover:underline">Go to User Dashboard</a>
+				<!-- Link to user list (from where admin can open any user's dashboard) -->
+				<a href="{{ route('admin.users.index') }}" class="text-blue-600 hover:underline">User List</a>
 			</nav>
 			<div class="border-t pt-4">
 				<h2 class="text-xl font-semibold mb-2">Nested Categories (Tree View)</h2>
